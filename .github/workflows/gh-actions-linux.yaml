@@ -1,0 +1,40 @@
+name: Build-Angle
+
+on: push
+
+jobs:
+  build-angle:
+    name: Build ANGLE
+    runs-on: ubuntu-latest
+      
+    steps:
+      - name: Clone
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      
+      - name: Add Depot Tools to PATH
+        run: echo "$GITHUB_WORKSPACE/depot_tools" >> $GITHUB_PATH
+        
+      - name: Sync
+        run: |
+            python scripts/bootstrap.py
+            gclient sync
+            git checkout master
+        working-directory: angle
+
+      - name: Install Deps
+        run: ./build/install-build-deps.sh
+        working-directory: angle
+      
+      - name: Build
+        run: |
+          gn gen out/Release --args="is_debug = false"
+          autoninja -C out/Release
+        working-directory: angle
+
+      - name: Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: out-Release-linux
+          path: angle/out/Release

@@ -5,7 +5,7 @@ on: push
 jobs:
   build-angle:
     name: Build ANGLE
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
       
     steps:
       - name: Clone
@@ -14,17 +14,15 @@ jobs:
           submodules: true
       
       - name: Add Depot Tools to PATH
-        run: echo "$GITHUB_WORKSPACE/depot_tools" >> $GITHUB_PATH
+        run: |
+          echo "$GITHUB_WORKSPACE/depot_tools" >> $GITHUB_PATH
+          echo "DEPOT_TOOLS_WIN_TOOLCHAIN=0" >> $GITHUB_ENV
         
       - name: Sync
         run: |
             python scripts/bootstrap.py
             gclient sync
             git checkout master
-        working-directory: angle
-
-      - name: Install Deps
-        run: ./build/install-build-deps.sh
         working-directory: angle
       
       - name: Build
@@ -36,5 +34,5 @@ jobs:
       - name: Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: out-Release
+          name: out-Release-macos
           path: angle/out/Release
