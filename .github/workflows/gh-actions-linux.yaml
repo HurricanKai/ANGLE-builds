@@ -4,7 +4,7 @@ on: push
 
 jobs:
   build-angle:
-    name: Build ANGLE
+    name: Build ANGLE linux
     runs-on: ubuntu-latest
       
     steps:
@@ -38,3 +38,9 @@ jobs:
         with:
           name: out-Release-linux
           path: angle/out/Release
+
+      - name: Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: out-Release-linux-libegl
+          path: angle/out/Release/libEGL.so

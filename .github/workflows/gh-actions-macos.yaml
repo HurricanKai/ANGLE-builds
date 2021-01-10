@@ -4,7 +4,7 @@ on: push
 
 jobs:
   build-angle:
-    name: Build ANGLE
+    name: Build ANGLE macos
     runs-on: macos-latest
       
     steps:
@@ -36,3 +36,9 @@ jobs:
         with:
           name: out-Release-macos
           path: angle/out/Release
+
+      - name: Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: out-Release-macos-libegl
+          path: angle/out/Release/libEGL.dylib
