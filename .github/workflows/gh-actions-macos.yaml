@@ -15,8 +15,8 @@ jobs:
       
       - name: Add Depot Tools to PATH
         run: |
-          echo "$GITHUB_WORKSPACE/depot_tools" >> $GITHUB_PATH
-          echo "DEPOT_TOOLS_WIN_TOOLCHAIN=0" >> $GITHUB_ENV
+          echo "$env:GITHUB_WORKSPACE/depot_tools" >> $env:GITHUB_PATH
+          echo "DEPOT_TOOLS_WIN_TOOLCHAIN=0" >> $env:GITHUB_ENV
         
       - name: Sync
         run: |
