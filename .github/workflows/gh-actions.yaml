@@ -25,8 +25,16 @@ jobs:
 
       - name: Install Deps
         run: ./build/install-build-deps.sh
+        working-directory: angle
       
       - name: Build
         run: |
           gn gen out/Release --args="is_debug = false"
           autoninja -C out/Release
+        working-directory: angle
+
+      - name: Artifact
+        uses: actions/upload-artifact@v2
+          with:
+            name: out-Release
+            path: angle/out/Release
