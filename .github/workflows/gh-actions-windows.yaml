@@ -43,7 +43,7 @@ jobs:
           name: out-Release-windows
           path: angle/out/Release
 
-            - name: Artifact
+      - name: Artifact
         uses: actions/upload-artifact@v2
         with:
           name: out-Release-windows-libEGL
