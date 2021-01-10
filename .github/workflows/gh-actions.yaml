@@ -14,7 +14,7 @@ jobs:
           submodules: true
       
       - name: Add Depot Tools to PATH
-        run: export PATH=/path/to/depot_tools:$PATH
+        run: echo "$GITHUB_WORKSPACE/depot_tools" >> $GITHUB_PATH
         
       - name: Sync
         run: |
