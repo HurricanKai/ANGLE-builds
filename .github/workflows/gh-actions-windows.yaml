@@ -15,7 +15,7 @@ jobs:
 
       - name: Download Depot Bundle
         run: |
-          rm -r ./depot-tools
+          rm -r ./depot_tools
           curl -o depot_tools.zip https://storage.googleapis.com/chrome-infra/depot_tools.zip
           tar -xf depot_tools.zip
       
